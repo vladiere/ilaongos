@@ -1,0 +1,118 @@
+*{
+    box-sizing: border-box;
+}
+html,
+body{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    color: #0D0D0D;
+}
+:root{
+    --white: #FFFFFF;
+    --bg-color: #F0F0F0;
+    --primary-color: #0099ff;
+    --hover: #0390EF;
+    --darken-primary: #00406A;
+}
+.btn-primary{
+    background: var(--primary-color);
+    padding: 10px 8px;
+    border-radius: 3px;
+    color: #FFF;
+    font-weight: 400;
+    outline: none;
+    border: none;
+}
+.btn-primary:hover{
+    background: var(--hover);
+}
+.btn-secondary{
+    background: none;
+    padding: 10px 8px;
+    border-radius: 3px;
+    color: #FFF;
+    font-weight: 400;
+    outline: none;
+    border: 2px solid var(--primary-color);
+}
+.link-primary{
+    color: var(--primary-color);
+}
+.link-primary:hover{
+    color: var(--hover);
+}
+/* HEADER / NAVBAR */
+.header .navbar-logo{
+    width: 70px;
+    height: 50px;
+}
+.header .navbar-brand{
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--darken-primary);
+    letter-spacing: 1px;
+}
+.header .navbar-brand > span{
+    color: var(--primary-color);
+}
+/* HERO-BANNER */
+.hero-banner{
+    width: 100%;
+    height: 700px;
+    background: linear-gradient(150deg, rgba(0, 0, 0, 0.5), rgba(0,0,0, 0.9)), url('../img/misc/carousel-3.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.hero-wrapper{
+    height: 700px;
+}
+.hero-wrapper .hero-head-description{
+    font-size: 3rem;
+    font-weight: 700;
+}
+.hero-wrapper .hero-head-description > span{
+    color: var(--primary-color);
+}
+/* AUTHENTICATION */
+.auth-body{
+    background: var(--bg-color);
+    height: 100%;
+}
+.authentication{
+    margin: 50px 0 100px 0;
+}
+.authentication .authentication-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.authentication .authentication-wrapper .form-auth{
+    height: 100%;
+    background: var(--white);
+    border: 10px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.authentication .form-inputs{
+    padding: 20px 50px;
+}
+.authentication .form-logo{
+    margin-top: -30px;
+    width: 100px;
+    height: 70px;
+}
+.authentication .form-title{
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.authentication .form-description{
+    font-weight: 400;
+    font-size: 1rem;
+    position: relative;
+}
