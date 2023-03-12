@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="assets/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/img/cwb-logo.png">
+    <link rel="stylesheet" href="./assets/css/toastr.min.css">
     <title>Carwash Boy - Registration</title>
 </head>
 <body class="auth-body">
@@ -50,28 +51,27 @@
                             <label for="confirmpass">Confirm Password</label>
                         </div>
                         <select class="form-select mb-3" aria-label="Purpose of using the service?" id="role">
-                            <option selected>Select Purpose</option>
-                            <option value="1">CarWash Owner.</option>
-                            <option value="2">Customer.</option>
+                            <option value="0" selected>Select Purpose</option>
+                            <option value="owner">CarWash Owner.</option>
+                            <option value="customer">Customer.</option>
                         </select>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1" required>
                             <label class="form-check-label" for="inlineCheckbox1">I accept the <a href="#" class="link-primary">Terms and Agreement</a> to use the service.</label>
                         </div>
                         <div class="col-12 mt-4">
-                            <button class="btn-primary w-100" id="login">Create Account</button>
+                            <button class="btn-primary w-100" id="signup">Create Account</button>
                         </div>
                         <hr class="border-bottom mt-3">
-                        <span class="text-muted text-center mb-3">Already have an account? <a href="login.html" class="link-primary text-decoration-none">Log In</a></span>
+                        <span class="text-muted text-center mb-3">Already have an account? <a href="./login.html" class="link-primary text-decoration-none">Log In</a></span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
     <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/toastr.min.js"></script>
     <script src="./assets/js/signup.js"></script>
 </body>
 </html>

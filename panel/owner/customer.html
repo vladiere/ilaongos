@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../assets/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="icon" href="../../assets/img/cwb-logo.png">
+    <link rel="stylesheet" href="../../assets/css/search.css">
     <title>CarwashBoy - Customer</title>
 </head>
 
@@ -29,18 +30,19 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">JOHN CARLO ONGOS</h6>
-                        <span>Owner</span>
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa-solid fa-house me-2"></i></i>Home</a>
-                    <a href="schedule.html" class="nav-item nav-link"><i
-                            class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
-                    <a href="#" class="nav-item nav-link active"><i class="fa-solid fa-users me-2"></i></i>Customer</a>
+                    <a href="schedule.html" class="nav-item nav-link"><i class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
+                    <a href="customer.html" class="nav-item nav-link active"><i class="fa-solid fa-users me-2"></i></i>Customer</a>
                     <a href="business.html" class="nav-item nav-link"><i class="fa-solid fa-folder me-2"></i>Business</a>
-                    <a href="index.html" class="nav-item nav-link"><i class="fa-solid fa-star me-2"></i>History</a>
+                    <a href="employee.html" class="nav-item nav-link"><i class="fa-solid fa-people-group"></i>Employees</a>
+                    <a href="branches.html" class="nav-item nav-link"><i class="fa-solid fa-code-branch"></i>Branches</a>
+                    <a href="history.html" class="nav-item nav-link"><i class="fa-solid fa-star me-2"></i>History</a>
                 </div>
             </nav>
         </div>
@@ -54,20 +56,20 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a role="button" class="sidebar-toggler flex-shrink-0">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">JOHN CARLO ONGOS</span>
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Change Password</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a role="button" class="dropdown-item" id="myprofile">My Profile</a>
+                            <a role="button" class="dropdown-item" id="changepass">Change Password</a>
+                            <a role="button" class="dropdown-item" id="logout">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -78,34 +80,60 @@
                 <div class="bg-light text-center rounded p-4">
                     <div class="table-responsive">
                         <h3 class="fs-4 mb-4 fw-bold text-warning">Customer In Queue</h3>
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <div class="container-inputs mb-3">
+                            <input type="text" placeholder="Search Name" name="text" id="searchStaff" onkeyup="searchShop();" class="inputs">
+                        </div>
+                        <table class="table text-center align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr class="text-dark">
                                     <th schope="col">Customer No.</th>
+                                    <th schope="col">Shop Name</th>
                                     <th schope="col">Full Name</th>
                                     <th scope="col">Location</th>
                                     <th scope="col">Scheduled</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Carlo Ongos</td>
-                                    <td>Gabi, Cordova</td>
-                                    <td>10-01-2022 09:30 AM</td>
-                                    <td>Pending</td>
-                                    <td><button class="btn btn-sm btn-success px-5">Accept</button></td>
-                                    <td><button class="btn btn-sm btn-danger px-5">Declined</button></td>
-                                </tr>
+                            <tbody id="customerTable">
+
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
             <!-- Schedule List End -->
+
+            <!-- Modal -->
+            <div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Wash Type</span>
+                                <input type="text" class="form-control text-center" placeholder="Wash Type" id="washType" aria-label="Wash Type" aria-describedby="basic-addon1" disabled>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Car Type</span>
+                                <input type="text" class="form-control text-center" placeholder="Car Type" id="carType" aria-label="Car Type" aria-describedby="basic-addon1" disabled>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="basic-addon1">Price</span>
+                                <input type="text" class="form-control text-center" placeholder="Price" id="pricePay" aria-label="Price" aria-describedby="basic-addon1" disabled>
+                            </div>
+                            <div class="btn-group d-flex align-content-center justify-content-around m-4" id="buttons" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-success mx-4 rounded acceptQueue">Accept</button>
+                                <button type="button" class="btn btn-outline-danger mx-4 rounded declineQueue">Declined</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+
             <!-- Footer Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light rounded-top p-4">
@@ -122,7 +150,13 @@
     </main>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/owner/displayowner.js"></script>
+    <script src="../../assets/js/owner/search.js"></script>
+    <script src="../../assets/js/owner/customer.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
+
 </body>
 
 </html>

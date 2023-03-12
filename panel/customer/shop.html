@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../../assets/css/search.css">
+    <link rel="icon" href="../../assets/img/cwb-logo.png">
+    <link rel="stylesheet" href="../../assets/css/toastr.min.css">
+    <title>CarwashBoy - Schedule</title>
+</head>
+
+<body>
+    <main class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3 d-flex gap-2 align-items-center">
+                    <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
+                    <span class="fw-bold text-muted">Carwash Boy</span>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="../../assets/img/id1x1.png" alt=""
+                            style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link "><i class="fa-solid fa-house me-2"></i></i>Home</a>
+                    <a href="schedule.html" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i></i>Schedule</a>
+                    <a href="shop.html" class="nav-item nav-link active"><i class="fa-solid fa-car me-2"></i>Carwash Shop</a>
+                    <a href="history.html" class="nav-item nav-link "><i class="fa-solid fa-star me-2"></i>History</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
+                </a>
+                <a role="button" class="sidebar-toggler flex-shrink-0">
+                    <span class="navbar-toggler-icon"></span>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a role="button" class="dropdown-item" id="myprofile">My Profile</a>
+                            <a role="button" class="dropdown-item" id="changepass">Change Password</a>
+                            <a role="button" class="dropdown-item" id="logout">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <!-- Schedule List Start -->
+            <div class="container-fluid pt-4 px-4">
+                <h3 class="fs-4 mb-4 fw-bold">Carwash Shops</h3>
+                <div class="container-inputs mb-3">
+                    <input type="text" placeholder="Search Nearest Location" name="text" id="searchCarwash" onkeyup="searchLocation();" class="inputs">
+                </div>
+                <div class="bg-light text-center rounded p-4" id="listTable">
+                    <div class="table-responsive" id="shoplistTable">
+                                                  
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th schope="col">#</th>
+                                    <th scope="col">Shop Name</th>
+                                    <th scope="col">Owner</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Published</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableShop">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="table-responsive d-none" id="priceTable">
+                        <div class="d-flex me-lg-5">
+                            <span class="me-5 back" id="back"><i class="fa-solid fa-backward" style="cursor: pointer;"></i></span>
+                            <h3 class="text-center fs-3"><span id="shopOrBranchName"></span> Price List</h3>
+                        </div>
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                <th schope="col">Service No.</th>
+                                <th scope="col">Carwash Service</th>
+                                <th scope="col">Type of Car</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tablePriceList">
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Set Schedule Modal -->
+            <div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="scheduleModalLabel">Set your cleaning Schedule</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="row">
+                            <div class="d-sm-flex gap-2">
+                                <div class="mb-3">
+                                    <label for="serveWashType" class="form-label fw-semibold">Carwash Servie:</label>
+                                    <input type="text" class="form-control" id="serveWashType" value="" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="address" class="form-label fw-semibold">Type of Car</label>
+                                    <input type="text" class="form-control" id="serveCarType" value="" disabled>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="contact" class="form-label fw-semibold">Price:</label>
+                                <input type="number" class="form-control" id="servePrice" value="" disabled>
+                            </div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="date" class="form-control" id="setDate">
+                            <label for="setDate">Set Date</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="time" class="form-control" id="setTime">
+                            <label for="setTIme">Set Time</label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-primary setSched">Set Schedule</button>
+                    </div>
+                </div>
+                </div>
+            </div>
+  
+            <!-- Schedule List End -->
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">CarwashBoy</a>, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+    </main>
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/toastr.min.js"></script>
+    <script src="../../assets/js/sweetalert.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/customer/displayCustomer.js"></script>
+    <script src="../../assets/js/customer/shop.js"></script>
+    <script src="../../assets/js/customer/searchshop.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
+</body>
+
+</html>

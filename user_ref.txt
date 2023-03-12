@@ -1,0 +1,26 @@
+Admin and Owner Status
+    0 => stable
+    1 => ban
+    2 => not verified
+
+
+
+Email and Password
+    Admin
+        Email => ongos@aim.com
+        Password => admin@12311 
+    Owner
+        Email                               Password
+        jaweg33968@iucake.com               qwerty12344
+        zxc@zxc.zxc                         asdaa
+        diko@dk.com                         asdasdaa
+
+    Customer
+        Email                               Password
+        example@ex.com                      sample12311
+        ado@adob.adobo                      asdaa
+        sample@samp.com                     sample12311
+
+Database name
+    carwashboy
+

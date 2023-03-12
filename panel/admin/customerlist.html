@@ -29,17 +29,18 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">JOHN CARLO ONGOS</h6>
-                        <span>Owner</span>
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
                     </div>
                 </div>
-                <div class="navbar-nav w-100">
+                <div class="navbar-nav w-100" id="navigation">
                     <a href="index.html" class="nav-item nav-link"><i
                             class="fa-solid fa-house me-2"></i></i>Home</a>
                     <a href="pending.html" class="nav-item nav-link"><i
-                            class="fa-solid fa-calendar me-2"></i></i>Pending <span class="badge text-bg-warning">4</span></a>
+                            class="fa-solid fa-calendar me-2"></i></i>Pending <span class="badge text-bg-warning" id="counts"></span></a>
                     <a href="ownerlist.html" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i></i>Owner List</a>
-                    <a href="#" class="nav-item nav-link active"><i class="fa-solid fa-users me-2"></i>Customer List</a>
+                    <a href="#" class="nav-item nav-link active"><i class="fa-solid fa-user-group me-2"></i>Customer List</a>
+                    <a href="bannedacc.html" class="nav-item nav-link"><i class="fa-solid fa-user-slash me-2"></i>Banned Accounts</a>
                 </div>
             </nav>
         </div>
@@ -53,20 +54,20 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a role="button" class="sidebar-toggler flex-shrink-0">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">JOHN CARLO ONGOS</span>
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Change Password</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a role="button" class="dropdown-item" id="myprofile">My Profile</a>
+                            <a href="./changepass.html" class="dropdown-item" id="changepass">Change Password</a>
+                            <a role="button" class="dropdown-item" id="logout">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -87,14 +88,8 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>John Carlo Ongos</td>
-                                    <td>Gabi, Cordova</td>
-                                    <td>10-01-2022 09:30 AM</td>
-                                    <td><button class="btn btn-sm btn-danger px-5">Ban</button></td>
-                                </tr>
+                            <tbody id="tableCustomer">
+
                             </tbody>
                         </table>
                     </div>
@@ -117,7 +112,14 @@
     </main>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/toastr.min.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/admin/customerlist.js"></script>
+    <script src="../../assets/js/admin/display.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
+
+
 </body>
 
 </html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/dashboard.css">
+    <link rel="icon" href="../../assets/img/cwb-logo.png">
+    <title>CarwashBoy - Profile</title>
+</head>
+
+<body>
+    <main class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="index.html" class="navbar-brand mx-4 mb-3 d-flex gap-2 align-items-center">
+                    <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
+                    <span class="fw-bold text-muted">Carwash Boy</span>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="position-relative">
+                        <img class="rounded-circle" src="../../assets/img/id1x1.png" alt=""
+                            style="width: 40px; height: 40px;">
+                        <div
+                            class="bg-success rounded-circle border border-2 border-white position-absolute end-0 bottom-0 p-1">
+                        </div>
+                    </div>
+                    <div class="ms-3">
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="index.html" class="nav-item nav-link"><i class="fa-solid fa-house me-2"></i></i>Home</a>
+                    <a href="schedule.html" class="nav-item nav-link"><i class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
+                    <a href="customer.html" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i></i>Customer</a>
+                    <a href="business.html" class="nav-item nav-link active"><i class="fa-solid fa-folder me-2"></i>Business</a>
+                    <a href="employee.html" class="nav-item nav-link"><i class="fa-solid fa-people-group"></i>Employees</a>
+                    <a href="branches.html" class="nav-item nav-link active"><i class="fa-solid fa-code-branch"></i>Branches</a>
+                    <a href="history.html" class="nav-item nav-link"><i class="fa-solid fa-star me-2"></i>History</a>
+                </div>
+            </nav>
+        </div>
+        <!-- Sidebar End -->
+
+
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
+                </a>
+                <a role="button" class="sidebar-toggler flex-shrink-0">
+                    <span class="navbar-toggler-icon"></span>
+                </a>
+                <div class="navbar-nav align-items-center ms-auto">
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                            <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
+                                style="width: 40px; height: 40px;">
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
+                            <a href="#" class="dropdown-item">My Profile</a>
+                            <a href="#" class="dropdown-item">Change Password</a>
+                            <a href="#" class="dropdown-item">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- Navbar End -->
+            <!-- Schedule List Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded p-4">
+                    <div class="business-wrap">
+                        <h3 class="fs-4 mb-4 fw-bold text-center">Business Information & Documents</h3>
+                        <div class="business-info">
+                            <div class="row">
+                                <!-- Carwash-Official-Logo -->
+                                <img class="mb-3 mx-0 mx-lg-auto shadow-lg p-3 rounded"
+                                    src="../../assets/img/cwmafia.jpg" style="width: 350px;">
+                                <!-- Carwash-Legal-Contacts -->
+                                <h4 class="fw-bold pt-3 pb-2">Business Legal Contacts</h4>
+                                <div class="mb-3">
+                                    <label for="carwashname" class="form-label fw-semibold">Carwash Name:</label>
+                                    <input type="text" class="form-control" id="carwashname" value="Carwash Mafia"
+                                        disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label fw-semibold">Email:</label>
+                                    <input type="email" class="form-control" id="email" value="carwash@gmail.com"
+                                        disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contact" class="form-label fw-semibold">Contact #:</label>
+                                    <input type="tel" class="form-control" id="contact" value="09123456789" disabled>
+                                </div>
+                                <!-- Carwash-Owner-Info -->
+                                <h4 class="fw-bold pt-3 pb-2">Carwash Owner Information</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="firstname" class="form-label fw-semibold">First Name</label>
+                                            <input type="text" class="form-control" id="firstname" value="John" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="lastname" class="form-label fw-semibold">Last Name</label>
+                                            <input type="text" class="form-control" id="lastname" value="Doe" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="middleinitial" class="form-label fw-semibold">MI.</label>
+                                            <input type="text" class="form-control" id="middleinitial" value="B" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label for="address" class="form-label fw-semibold">Complete Address</label>
+                                            <input type="text" class="form-control" id="address" value="Bangbang II Road, Cordova, Cebu" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Carwash-Owner-Info -->
+                                <h4 class="fw-bold pt-3 pb-2">Documents</h4>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img src="../../assets/img/permit-sample-1.jpg" alt="..." style="width: 200px; height: 200px;">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img src="../../assets/img/permit-sample-2.jpg" alt="..." style="width: 200px; height: 200px;">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img src="../../assets/img/permit-sample-3.jpg" alt="..." style="width: 200px; height: 200px;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Schedule List End -->
+            <!-- Footer Start -->
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light rounded-top p-4">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 text-center text-sm-start">
+                            &copy; <a href="#">CarwashBoy</a>, All Right Reserved.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer End -->
+        </div>
+        <!-- Content End -->
+    </main>
+    <script src="../../assets/js/jquery.js"></script>
+    <script src="../../assets/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/owner/displayowner.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
+
+</body>
+
+</html>

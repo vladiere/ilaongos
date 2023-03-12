@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../assets/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="icon" href="../../assets/img/cwb-logo.png">
+    <link rel="stylesheet" href="../../assets/css/toastr.min.css">
     <title>CarwashBoy - Business Information</title>
 </head>
 
@@ -29,17 +30,17 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">JOHN CARLO ONGOS</h6>
-                        <span>Owner</span>
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
                     <a href="index.html" class="nav-item nav-link"><i class="fa-solid fa-house me-2"></i></i>Home</a>
-                    <a href="schedule.html" class="nav-item nav-link"><i
-                            class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
-                    <a href="customer.html" class="nav-item nav-link"><i
-                            class="fa-solid fa-users me-2"></i></i>Customer</a>
-                    <a href="#" class="nav-item nav-link active"><i class="fa-solid fa-folder me-2"></i>Business</a>
+                    <a href="schedule.html" class="nav-item nav-link"><i class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
+                    <a href="customer.html" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i></i>Customer</a>
+                    <a href="business.html" class="nav-item nav-link active"><i class="fa-solid fa-folder me-2"></i>Business</a>
+                    <a href="employee.html" class="nav-item nav-link"><i class="fa-solid fa-people-group"></i>Employees</a>
+                    <a href="branches.html" class="nav-item nav-link"><i class="fa-solid fa-code-branch"></i>Branches</a>
                     <a href="history.html" class="nav-item nav-link"><i class="fa-solid fa-star me-2"></i>History</a>
                 </div>
             </nav>
@@ -54,53 +55,34 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a role="button" class="sidebar-toggler flex-shrink-0">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">JOHN CARLO ONGOS</span>
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Change Password</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a role="button" class="dropdown-item" id="myprofile">My Profile</a>
+                            <a role="button" class="dropdown-item" id="changepass">Change Password</a>
+                            <a role="button" class="dropdown-item" id="logout">Log Out</a>
                         </div>
                     </div>
                 </div>
             </nav>
             <!-- Navbar End -->
             <!-- Schedule List Start -->
-            <div class="container-fluid pt-4 px-4">
+            <div class="container-fluid pt-4 px-4" id="container">
                 <div class="bg-light rounded p-4">
                     <div class="business-wrap">
                         <h3 class="fs-4 mb-4 fw-bold text-center">Business Information & Documents</h3>
                         <div class="business-info">
                             <div class="row">
-                                <!-- Carwash-Official-Logo -->
-                                <img class="mb-3 mx-0 mx-lg-auto shadow-lg p-3 rounded"
-                                    src="../../assets/img/cwmafia.jpg" style="width: 350px;">
-                                <!-- Carwash-Legal-Contacts -->
-                                <h4 class="fw-bold pt-3 pb-2">Business Legal Contacts</h4>
-                                <div class="mb-3">
-                                    <label for="carwashname" class="form-label fw-semibold">Carwash Name:</label>
-                                    <input type="text" class="form-control" id="carwashname" value="Carwash Mafia"
-                                        disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="email" class="form-label fw-semibold">Email:</label>
-                                    <input type="email" class="form-control" id="email" value="carwash@gmail.com"
-                                        disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="contact" class="form-label fw-semibold">Contact #:</label>
-                                    <input type="tel" class="form-control" id="contact" value="09123456789" disabled>
-                                </div>
                                 <!-- Carwash-Owner-Info -->
-                                <h4 class="fw-bold pt-3 pb-2">Carwash Owner Information</h4>
+                                <h4 class="fw-bold pt-3 pb-2">Owner Information</h4>
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="mb-3">
@@ -120,27 +102,109 @@
                                             <input type="text" class="form-control" id="middleinitial" value="B" disabled>
                                         </div>
                                     </div>
-                                    <div class="col-12">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label fw-semibold">Email:</label>
+                                        <input type="email" class="form-control" id="email" value="carwash@gmail.com"
+                                            disabled>
+                                    </div>
+                                    <div class="col-12" id="needtoedit">
                                         <div class="mb-3">
                                             <label for="address" class="form-label fw-semibold">Complete Address</label>
-                                            <input type="text" class="form-control" id="address" value="Bangbang II Road, Cordova, Cebu" disabled>
+                                            <input type="text" class="form-control" id="address" value="" disabled>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="contact" class="form-label fw-semibold">Contact #:</label>
+                                            <input type="tel" class="form-control" id="contact" value="" disabled>
                                         </div>
                                     </div>
+                                    <div class="mb-3" id="editButton">
+                                        <input type="button" class="btn btn-success" id="changeEdit" value="Edit">
+                                        <input type="button" class="btn btn-info d-none" id="saveEdit" value="Save">
+                                    </div>
                                 </div>
-                                <!-- Carwash-Owner-Info -->
-                                <h4 class="fw-bold pt-3 pb-2">Documents</h4>
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <img src="../../assets/img/permit-sample-1.jpg" alt="..." style="width: 200px; height: 200px;">
+                                <div id="add-business" class="d-flex align-content-center justify-content-center">
+                                    <input type="button" id="addImg" value="Add Your Business" data-bs-toggle="modal" data-bs-target="#addDocuments" class="btn btn-outline-success">
+                                </div>
+                                <div class="mt-4 warningText"></div>
+                                <!-- Carwash-Official-Logo -->
+                                <div class="business-con text-center">
+                                    <h3 class="display-3 text-center" id="accountStatus"></h3>
+                                    <h4 class="fw-bold pt-3 pb-2">Business Legal Contracts</h4>
+                                    <div class="fs-4 position-absolute" style="right: 28%; z-index:999; cursor:pointer;" id="updateLogo" data-bs-toggle="modal" data-bs-target="#updateImage">
+                                        <i class="fa-solid fa-pen-to-square"></i>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <img src="../../assets/img/permit-sample-2.jpg" alt="..." style="width: 200px; height: 200px;">
+                                    <img class="mb-3 mx-0 mx-lg-auto shadow-lg p-3 rounded" id="ownerProfile" src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-Vector-PNG-Pic.png" style="width: 350px;">
+                                    <!-- Carwash-Legal-Contacts -->
+                                    <!-- Carwash-Owner-Info -->
+                                    <div class="mb-3">
+                                        <label for="carwashname" class="form-label fw-semibold ">Carwash Name:</label>
+                                        <input type="text" class="form-control text-center bg-transparent border-0 fs-1" id="carwashname" value="Carwash Name" disabled>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <img src="../../assets/img/permit-sample-3.jpg" alt="..." style="width: 200px; height: 200px;">
+                                    <div class="row" id="documents">
+                                        
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Documents Modal -->
+            <div class="modal fade" id="addDocuments" tabindex="-1" aria-labelledby="addDocumentsLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="addDocumentsLabel">Stablished your carwash shop</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="cwname" class="form-label">Carwash Name:</label>
+                                <input class="form-control" type="text" id="cwname" name="cwname" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="locations" class="form-label">Location:</label>
+                                <input class="form-control" type="text" id="locations" name="locations" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="image_file" class="form-label">Upload Profile</label>
+                                <input class="form-control" type="file" id="image_file" name="image_file" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="multiple_files" class="form-label">Add multiple documents</label>
+                                <input class="form-control" type="file" id="multiple_files" name="multiple_files" multiple>
+                            </div>
+                            <div id="preview" class="container d-md-flex flex-column"></div>
+                            <div id="result"></div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+                        <button type="button" class="btn btn-outline-dark" id="submit">Add Documents</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Update image carwash shop -->
+            <div class="modal fade" id="updateImage" tabindex="-1" aria-labelledby="updateImageLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="updateImageLabel">Change your carwash shop Logo</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="image_file" class="form-label">Upload Profile</label>
+                                <input class="form-control" type="file" id="image_logo" name="image_logo">
+                            </div>
+                            <div id="previewLogo" class="container d-md-flex flex-column"></div>
+                            <div id="result"></div>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">Close</button>
+                        <button type="button" class="btn btn-outline-dark" id="changeLogo">Change</button>
                         </div>
                     </div>
                 </div>
@@ -162,7 +226,14 @@
     </main>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/toastr.min.js"></script>
+    <script src="../../assets/js/sweetalert.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/owner/displayowner.js"></script>
+    <script src="../../assets/js/owner/documents.js"></script>
+    <script src="../../assets/js/image.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
 </body>
 
 </html>

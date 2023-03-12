@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="assets/css/all.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="icon" href="assets/img/cwb-logo.png">
-    <title>Carwash Boy - Registration</title>
+    <link rel="stylesheet" href="./assets/css/toastr.min.css">
+    
+    <title>Carwash Boy - Login</title>
 </head>
 <body class="auth-body">
     <section class="authentication">
@@ -24,15 +26,15 @@
                         <h2 class="text-center mb-2">Log in to your account</h2>
                         <p class="form-description text-center mb-4">Come in dirty, come out clean.</p>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                            <label for="floatingInput">Email address</label>
+                            <input type="email" class="form-control" id="emailadd" placeholder="name@example.com">
+                            <label for="emailadd">Email address</label>
                         </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                            <label for="floatingPassword">Password</label>
+                        <div class="form-floating mb-1">
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+                            <label for="password">Password</label>
                         </div>
                         <div class="form-forgot">
-                            <a href="register.html" class="link-primary text-decoration-none fw-semibold">Forgotten Password?</a>
+                            <a href="./sample mail/index.php" class="link-primary text-decoration-none fw-semibold">Forgotten Password?</a>
                         </div>
                         <div class="col-12 mt-4">
                             <button class="btn-primary w-100" id="login">Login</button>
@@ -44,5 +46,10 @@
             </div>
         </div>
     </section>
+
+
+    <script src="./assets/js/jquery.js"></script>
+    <script src="./assets/js/toastr.min.js"></script>
+    <script src="./assets/js/login.js"></script>
 </body>
 </html>

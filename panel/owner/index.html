@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="../../assets/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/dashboard.css">
     <link rel="icon" href="../../assets/img/cwb-logo.png">
+    <link rel="stylesheet" href="../../assets/css/toastr.min.css">
     <title>CarwashBoy - Dashboard</title>
 </head>
 
 <body>
+
     <main class="container-xxl position-relative bg-white d-flex p-0">
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
@@ -29,22 +31,24 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <h6 class="mb-0">JOHN CARLO ONGOS</h6>
-                        <span>Owner</span>
+                        <h6 class="mb-0" id="fullname"></h6>
+                        <span id="role"></span>
                     </div>
                 </div>
                 <div class="navbar-nav w-100">
-                    <a href="#" class="nav-item nav-link active"><i
-                            class="fa-solid fa-house me-2"></i></i>Home</a>
-                    <a href="schedule.html" class="nav-item nav-link"><i
-                            class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
+                    <a href="index.html" class="nav-item nav-link active"><i class="fa-solid fa-house me-2"></i></i>Home</a>
+                    <a href="schedule.html" class="nav-item nav-link"><i class="fa-solid fa-calendar me-2"></i></i>Schedule</a>
                     <a href="customer.html" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i></i>Customer</a>
                     <a href="business.html" class="nav-item nav-link"><i class="fa-solid fa-folder me-2"></i>Business</a>
+                    <a href="employee.html" class="nav-item nav-link"><i class="fa-solid fa-people-group"></i>Employees</a>
+                    <a href="branches.html" class="nav-item nav-link"><i class="fa-solid fa-code-branch"></i>Branches</a>
                     <a href="history.html" class="nav-item nav-link"><i class="fa-solid fa-star me-2"></i>History</a>
                 </div>
             </nav>
         </div>
         <!-- Sidebar End -->
+
+        
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
@@ -52,20 +56,20 @@
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <img src="../../assets/img/cwb-logo.png" style="width: 50px;">
                 </a>
-                <a href="#" class="sidebar-toggler flex-shrink-0">
+                <a role="button" class="sidebar-toggler flex-shrink-0">
                     <span class="navbar-toggler-icon"></span>
                 </a>
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+                        <a role="button" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                             <img class="rounded-circle me-lg-2" src="../../assets/img/id1x1.png" alt=""
                                 style="width: 40px; height: 40px;">
-                            <span class="d-none d-lg-inline-flex">JOHN CARLO ONGOS</span>
+                            <span class="d-none d-lg-inline-flex" id="fullname"></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                            <a href="#" class="dropdown-item">My Profile</a>
-                            <a href="#" class="dropdown-item">Change Password</a>
-                            <a href="#" class="dropdown-item">Log Out</a>
+                            <a role="button" class="dropdown-item" id="myprofile">My Profile</a>
+                            <a role="button" class="dropdown-item" id="changepass">Change Password</a>
+                            <a role="button" class="dropdown-item" id="logout">Log Out</a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +84,7 @@
                             <i class="fa-solid fa-clock fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Pending</p>
-                                <h6 class="mb-0">0</h6>
+                                <h6 class="mb-0" id="pendings">0</h6>
                             </div>
                         </div>
                     </div>
@@ -90,17 +94,17 @@
                             <i class="fa-solid fa-circle-check fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Completed</p>
-                                <h6 class="mb-0">0</h6>
+                                <h6 class="mb-0" id="completed">0</h6>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div
                             class="bg-light rounded d-flex align-items-center justify-content-start justify-content-lg-between p-4">
-                            <i class="fa-solid fa-users fa-3x text-primary"></i>
+                            <i class="fa-solid fa-calendar-days fa-3x text-primary"></i>
                             <div class="ms-3">
-                                <p class="mb-2">Customers</p>
-                                <h6 class="mb-0">0</h6>
+                                <p class="mb-2">Schedules</p>
+                                <h6 class="mb-0" id="customers">0</h6>
                             </div>
                         </div>
                     </div>
@@ -110,7 +114,7 @@
                             <i class="fa fa-chart-pie fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Income</p>
-                                <h6 class="mb-0">$1234</h6>
+                                <h6 class="mb-0"">&#8369;<span id="income">0</span></h6>
                             </div>
                         </div>
                     </div>
@@ -121,50 +125,81 @@
             <div class="container-fluid pt-4 px-4">
                 <div class="bg-light text-center rounded p-4">
                     <div class="d-flex flex-column align-items-start justify-content-between mb-4">
-                        <button class="btn btn-primary" id="btn-add" data-bs-toggle="modal"
-                            data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Add Service</button>
-                        <!-- Add-Service-Modal -->
+                        <div class="form-fullname mb-3 d-sm-flex gap-3">
+                            <button class="btn btn-primary" id="btn-add" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-plus"></i> Add Service</button>
+                            <button class="btn btn-primary" id="btn-addBranch" data-bs-toggle="modal" data-bs-target="#addBranch"><i class="fa-solid fa-plus"></i> Add Branch</button>
+                        </div>
+
+                        <!-- Add-Branch-Modal -->
+                        <div class="modal fade" id="addBranch" tabindex="-1" aria-labelledby="btnAddBranchModal"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="addServiceModal">Add Branch</h1>
+                                        <button type="button" class="btn-close bg" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="branchName" placeholder="Branch Name">
+                                            <label for="branchName">Branch Name</label>
+                                        </div>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="branchLocation" placeholder="Location">
+                                            <label for="branchLocation">Location</label>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="btnAddBranch">Add</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addServiceModal"
                             aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id="addServiceModal">Add Service</h1>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        <button type="button" class="btn-close bg" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <select class="form-select form-select-md mb-3" aria-label=".form-select-md">
-                                            <option selected disabled>Select Service Type</option>
-                                            <option value="1">Body Wash</option>
-                                            <option value="2">Value Wash</option>
-                                            <option value="3">Complete Wash</option>
-                                            <option value="4">Wax</option>
-                                            <option value="5">Vacuum</option>
-                                            <option value="6">Armour All</option>
-                                            <option value="7">Set Cover</option>
-                                            <option value="7">Set Cover Removal</option>
+                                        <h3 id="serviceTitle"></h3>
+                                        <select class="form-select form-select-md mb-3" aria-label=".form-select-md" id="newServiceType">
+                                            <option value="0" selected>Select New Service Type</option>
+                                            <option value="Body Wash">Body Wash</option>
+                                            <option value="Value Wash">Value Wash</option>
+                                            <option value="Complete Wash">Complete Wash</option>
+                                            <option value="Wax">Wax</option>
+                                            <option value="Vacuum">Vacuum</option>
+                                            <option value="Armour All">Armour All</option>
+                                            <option value="Set Cover">Set Cover</option>
+                                            <option value="Set Cover Removal">Set Cover Removal</option>
                                         </select>
-                                        <select class="form-select form-select-md mb-3" aria-label=".form-select-md">
-                                            <option selected disabled>Select Type of Car</option>
-                                            <option value="1">HB</option>
-                                            <option value="2">SEDAN</option>
-                                            <option value="3">AUV</option>
-                                            <option value="4">PICK-UP</option>
-                                            <option value="5">SUV</option>
-                                            <option value="6">VAN</option>
-                                            <option value="7">URBAN</option>
+                                        <select class="form-select form-select-md mb-3" aria-label=".form-select-md" id="newCarType">
+                                            <option value="0" selected>Select New Type of Car</option>
+                                            <option value="HB">HB</option>
+                                            <option value="SEDAN">SEDAN</option>
+                                            <option value="AUV">AUV</option>
+                                            <option value="PICK-UP">PICK-UP</option>
+                                            <option value="SUV">SUV</option>
+                                            <option value="VAN">VAN</option>
+                                            <option value="URBAN">URBAN</option>
                                         </select>
                                         <div class="form-floating mb-3">
-                                            <input type="number" class="form-control" id="floatingInput"
-                                                placeholder="Pesos">
-                                            <label for="floatingInput">Enter Service Price</label>
+                                            <input type="number" class="form-control" id="newPrice" placeholder="Pesos">
+                                            <label for="newPrice">Enter New Service Price</label>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Add</button>
+                                        <button type="button" class="btn btn-primary" id="btnAddService">Add</button>
                                     </div>
                                 </div>
                             </div>
@@ -182,18 +217,12 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Body Wash</td>
-                                    <td>SUV</td>
-                                    <td>₱140.00</td>
-                                    <td><button class="btn btn-sm btn-success px-5" data-bs-toggle="modal"  data-bs-target="#editModal">Edit</button></td>
-                                    <td><button class="btn btn-sm btn-danger px-5">Delete</button></td>
-                                </tr>
+                            <tbody id="tablePriceList">
+                                
                             </tbody>
                         </table>
                     </div>
+
                     <!-- Edit-Service-Modal -->
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="addServiceModal"
                         aria-hidden="true">
@@ -205,40 +234,26 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <select class="form-select form-select-md mb-3" aria-label=".form-select-md">
-                                        <option selected disabled>Service #1</option>
-                                    </select>
-                                    <select class="form-select form-select-md mb-3" aria-label=".form-select-md">
-                                        <option selected disabled>Select New Service Type</option>
-                                        <option value="1">Body Wash</option>
-                                        <option value="2">Value Wash</option>
-                                        <option value="3">Complete Wash</option>
-                                        <option value="4">Wax</option>
-                                        <option value="5">Vacuum</option>
-                                        <option value="6">Armour All</option>
-                                        <option value="7">Set Cover</option>
-                                        <option value="7">Set Cover Removal</option>
-                                    </select>
-                                    <select class="form-select form-select-md mb-3" aria-label=".form-select-md">
-                                        <option selected disabled>Select New Type of Car</option>
-                                        <option value="1">HB</option>
-                                        <option value="2">SEDAN</option>
-                                        <option value="3">AUV</option>
-                                        <option value="4">PICK-UP</option>
-                                        <option value="5">SUV</option>
-                                        <option value="6">VAN</option>
-                                        <option value="7">URBAN</option>
-                                    </select>
+                                    <h3 id="serviceTitle"></h3>
+                                    
                                     <div class="form-floating mb-3">
-                                        <input type="number" class="form-control" id="floatingInput"
-                                            placeholder="Pesos">
-                                        <label for="floatingInput">Enter New Service Price</label>
+                                        <input type="text" class="form-control" id="serviceType" placeholder="Service Type" disabled>
+                                        <label for="price">Service Type</label>
+                                    </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="carType" placeholder="Car Type" disabled>
+                                        <label for="price">Car Type</label>
+                                    </div>
+                                    
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" id="price" placeholder="Pesos">
+                                        <label for="price">Enter New Service Price</label>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Update</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary updatelist">Update</button>
                                 </div>
                             </div>
                         </div>
@@ -262,7 +277,14 @@
     </main>
     <script src="../../assets/js/jquery.js"></script>
     <script src="../../assets/js/bootstrap.bundle.min.js"></script>
-    <script src="../../assets/js/main.js"></script>
+    <script src="../../assets/js/toastr.min.js"></script>
+    <script src="../../assets/js/toggler.js"></script>
+    <script src="../../assets/js/owner/displayowner.js"></script>
+    <script src="../../assets/js/owner/index.js"></script>
+    <script src="../../assets/js/logout.js"></script>
+
+
+
 </body>
 
 </html>
