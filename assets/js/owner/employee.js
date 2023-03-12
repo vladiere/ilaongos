@@ -19,7 +19,8 @@ toastr.options = {
 
 $(document).ready(function() {
     displayEmployee()
-
+    displayBranches()
+    
     $(document).on('click', '.fireStaff', function () {
         swal({
             title: 'Remove Employee',
@@ -80,6 +81,8 @@ let displayEmployee = () => {
                 let dataJSON = JSON.parse(data)
                 let employeeStr = ''
                 let count = 1
+                
+                
                 dataJSON.forEach(element => {
                     if (element.staff_status === '0') {
                         
@@ -107,13 +110,42 @@ let displayEmployee = () => {
     })
 }
 
+
+let displayBranches = () => {
+    $.ajax({
+        type: 'POST',
+        url: '../../assets/php/router.php',
+        data: {
+            choice: 'getBranches'
+        },
+        success: data => {
+            if (checkDataJson(data)) {
+                let dataJSON = JSON.parse(data)
+                dataJSON.forEach(element => {
+                    if (element.branch_status === '0') {                        
+                        const option = $('<option>')
+                        option.val(`${element.branch_name}`)
+                        option.text(`${transformWordWithWhiteSpace(element.branch_name)}`)
+                        
+                        $('#branchList').append(option)
+                    }
+                })
+            } else {
+                console.log(data);
+            }
+        },
+        error: (xhr, ajaxOptions, err) => {console.error(err);}
+    })
+}
+
+
 let addEmployeeRequest = () => {
     $.ajax({
         type: "POST",
         url: '../../assets/php/router.php',
         data: {
             choice: 'addEmployee',
-            assign: $('#employeeAssign').val().toLowerCase(),
+            assign: $('#branchList').val().toLowerCase(),
             firstname: $('#employeeFirstname').val().toLowerCase(),
             midname: $('#employeeMidname').val().toLowerCase(),
             lastname: $('#employeeLastname').val().toLowerCase(),
@@ -125,7 +157,7 @@ let addEmployeeRequest = () => {
         success: data => {
             if (data === '200') {
                 toastr['success']('Employee regiemployeeStration successful')
-                $('#employeeAssign').val('')
+                $('#branchList').val('')
                 $('#employeeFirstname').val('')
                 $('#employeeMidname').val('')
                 $('#employeeLastname').val('')

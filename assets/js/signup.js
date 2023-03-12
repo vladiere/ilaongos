@@ -30,18 +30,25 @@ toastr.options = {
 }
 
 
-checkSignup = () => {
+let checkSignup = () => {
     let flag = false;
-    
-    var regexp = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 
     if ($('#firstname').val() != '' && $('#lastname').val() != '' && $('#midname').val() != '' && $('#emailadd').val() != '' && $('#password').val() != '' && $('#confirmpass').val() != ''){
-        if (regexp.test($('#emailadd').val())) {
+        if (validateEmail($('#emailadd').val())) {
             if ($('#password').val() === $('#confirmpass').val()) {
                 if ($('#role').val() != 0) {
-                    flag = true;
+                    if ($('#password').length < 8 && $('#confirmpass').length < 8) {
+                        if ($('#inlineCheckbox1').is(":checked")) {
+                            flag = true;
+                        } else {
+                            toastr["error"]("Please accept the user agreement")
+                        }
+                    } else {
+                        console.error($('#password').length < 8 && $('#confirmpass').length < 8);
+                        toastr["error"]("Passwords must be at least 8 characters")
+                    }
                 } else {
-                    toastr["error"]("Please accept the User Agreement")
+                    toastr["error"]("Please select your purpose")
                 }
             } else {
                 toastr["error"]("Password does not match")
@@ -56,7 +63,13 @@ checkSignup = () => {
     return flag;
 }
 
-registerRequest = () => {
+
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+let registerRequest = () => {
     $.ajax({
         type: 'POST',
         url: 'assets/php/router.php',
@@ -72,8 +85,14 @@ registerRequest = () => {
         success: (data) => {
             if (data === '200') {
                 $(location).attr('href','./login.html')
+            } else {
+                if (data.indexOf("1062 Duplicate entry") === 49) {
+                    toastr['error']('Email already in use')
+                } else {
+                    console.error(data);
+                }    
             }
         },
-        error: (xhr, ajaxOptions, errThrown) => {console.log(errThrown);}
+        error: (xhr, ajaxOptions, errThrown) => {console.error(errThrown);}
     })
 }
