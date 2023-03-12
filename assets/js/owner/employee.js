@@ -157,7 +157,7 @@ let addEmployeeRequest = () => {
         success: data => {
             if (data === '200') {
                 toastr['success']('Employee regiemployeeStration successful')
-                $('#branchList').val('')
+                $('#branchList').val(0)
                 $('#employeeFirstname').val('')
                 $('#employeeMidname').val('')
                 $('#employeeLastname').val('')
