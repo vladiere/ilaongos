@@ -1207,9 +1207,9 @@ class backend
                 if ($db->getStatus()) {
                     $stmt = $db->getConnection()->prepare(self::registerQuery());
                     if ($role === 'owner') {
-                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday(), 2));
+                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday()));
                     } else {
-                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday(), 2));
+                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday()));
                     }
                     $result = $stmt->fetch();
                     

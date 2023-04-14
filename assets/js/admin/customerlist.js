@@ -28,13 +28,6 @@ $(document).ready(() => {
 
 })
 
-{/* <tr>
-        <td>1</td>
-        <td>John Carlo Ongos</td>
-        <td>Gabi, Cordova</td>
-        <td>10-01-2022 09:30 AM</td>
-        <td><button class="btn btn-sm btn-danger px-5">Ban</button></td>
-    </tr> */}
 
 
 banUser = (id, stat) => {
@@ -73,7 +66,7 @@ let displayCustomerList = () => {
                 let ctr = 1
                 
                 dataJSON.forEach(element => {
-                    if (element.role === 'customer' && element.status === 0) {
+                    if (element.role === 'customer' && element.status == 0) {
                         str += '<tr>'+
                                 '<td>'+ ctr +'</td>'+
                                 '<td>'+ capitalized(element.lastname) +', '+ capitalized(element.firstname) +' '+ element.midname.charAt(0) +'.</td>'+

@@ -52,7 +52,7 @@ displayBannedList = () => {
                 let str = ''
                 let ctr = 1
                 dataJSON.forEach(element => {
-                    if (element.status === 1) {
+                    if (element.status == 1) {
                         str += '<tr>'+
                                 '<td>'+ ctr +'</td>'+
                                 '<td>'+ element.id +'</td>'+
