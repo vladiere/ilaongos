@@ -32,6 +32,7 @@ toastr.options = {
 
 let checkSignup = () => {
     let flag = false;
+    
 
     if ($('#firstname').val() != '' && $('#lastname').val() != '' && $('#midname').val() != '' && $('#emailadd').val() != '' && $('#password').val() != '' && $('#confirmpass').val() != ''){
         if (validateEmail($('#emailadd').val())) {
@@ -39,7 +40,19 @@ let checkSignup = () => {
                 if ($('#role').val() != 0) {
                     if ($('#password').length < 8 && $('#confirmpass').length < 8) {
                         if ($('#inlineCheckbox1').is(":checked")) {
-                            flag = true;
+                            if (checkLetters($('#firstname').val())) {
+                                if (checkLetters($('#midname').val())) {
+                                    if (checkLetters($('#lastname').val())) {
+                                        flag = true;
+                                    } else {
+                                        toastr['error']('Lastname must not contain Numbers')
+                                    }
+                                } else {
+                                    toastr['error']('Middlename must not contain Numbers')
+                                }
+                            } else {
+                                toastr['error']('Firstname must not contain Numbers')
+                            }
                         } else {
                             toastr["error"]("Please accept the user agreement")
                         }
@@ -95,4 +108,14 @@ let registerRequest = () => {
         },
         error: (xhr, ajaxOptions, errThrown) => {console.error(errThrown);}
     })
+}
+
+let checkLetters = function (str) {
+    let flag = false;
+    var pattern = /^[A-Za-z]+$/;
+    if (str.match(pattern)) {
+        flag = true
+    }
+
+    return flag
 }

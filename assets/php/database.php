@@ -13,7 +13,7 @@ class database
     {
         $this->host = 'localhost';
         $this->user = 'root';
-        $this->password = '';
+        $this->password = 'Qwerty@$12344';
         $this->dbname = 'carwashboy';
         $this->status = false;
 
