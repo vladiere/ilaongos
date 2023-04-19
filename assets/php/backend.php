@@ -168,9 +168,9 @@ class backend
         return self::removeOneEmployee($status, $staff_id);
     }
 
-    public function addBranch($branch_name, $location)
+    public function addBranch($location)
     {
-        return self::addNewBranch($branch_name, $location);
+        return self::addNewBranch($location);
     }
 
     public function getBranches()
@@ -377,14 +377,14 @@ class backend
         }
     }
 
-    private function addNewBranch($branch_name, $location)
+    private function addNewBranch($location)
     {
         try {
             if (self::checkLogin($_SESSION["email"], $_SESSION["password"])) {
                 $db = new database;
                 if ($db->getStatus()) {
                     $stmt = $db->getConnection()->prepare(self::addNewBranchQuery());
-                    $stmt->execute(array(self::getUserID(), $branch_name, $location, self::getDateToday()));
+                    $stmt->execute(array(self::getUserID(), $location, self::getDateToday()));
                     $result = $stmt->fetch();
                     if (!$result) {
                         $db->closeConnection();
@@ -1445,7 +1445,7 @@ class backend
     // Owner
     private function addNewBranchQuery()
     {
-        return "INSERT INTO `tbl_branch`(`owner_id`, `branch_name`, `branch_location`, `date_publish`) VALUES (?,?,?,?)";
+        return "INSERT INTO `tbl_branch`(`owner_id`, `branch_location`, `date_publish`) VALUES (?,?,?)";
     }
 
     private function removeBranchQuery()
@@ -1637,12 +1637,12 @@ class backend
 
     private function customerAndShopQuery()
     {
-        return "SELECT * FROM `tbl_users` `tu` JOIN `tbl_carwashshop` `tc` ON `tc`.`owner_id` = `tu`.`id`";
+        return "SELECT * FROM `tbl_users` `tu` RIGHT JOIN `tbl_carwashshop` `tc` ON `tc`.`owner_id` = `tu`.`id`";
     }
 
     private function customerAndBranchShopQuery()
     {
-        return "SELECT * FROM `tbl_branch` `tb` JOIN `tbl_users` `tu` ON `tu`.`id` = `tb`.`owner_id`";
+        return "SELECT * FROM `tbl_branch` `tb` LEFT JOIN `tbl_carwashshop` `tc` ON `tc`.`owner_id` = `tb`.`owner_id` LEFT JOIN `tbl_users` `tu` ON `tc`.`owner_id` = `tu`.`id`";
     }
 
     private function priceListQuery()

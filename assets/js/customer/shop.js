@@ -70,7 +70,7 @@ let displayCarwashShop = () => {
                 let tableStr = ''
                 let ctr = 1
                 dataJSON.forEach(element => {
-
+                    console.table(element)
                     if (element.status == 0) {
                         tableStr += `
                                     <tr>
@@ -107,15 +107,14 @@ let displayBranchShop = (ctr) => {
         success: (data) => {
             if (checkJson(data)) {
                 let dataJSON = JSON.parse(data);
-
                 let tableStr = ''
                 dataJSON.forEach(element => {
-
+                    console.table(element)
                     if (element.branch_status == 0) {
                         tableStr += `
                                     <tr>
                                         <td>${ctr}</td>
-                                        <td>${element.branch_name}</td>
+                                        <td>${element.shop_name}</td>
                                         <td>${capitalized(element.firstname)} ${capitalized(element.lastname)} ${element.midname.charAt(0).toUpperCase()}.</td>
                                         <td>${capitalized(element.branch_location)}</td>
                                         <td>${element.date_publish}</td>

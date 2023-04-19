@@ -134,7 +134,7 @@ let getAllTransactions = () => {
                     dataJSON.forEach(element => {
                         
                         if (element.trans_status === 'completed') {
-                            income += element.price
+                            income += parseInt(element.price)
                             completed++
                         } else if (element.trans_status === '0') {
                             customers++

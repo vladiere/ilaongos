@@ -74,7 +74,7 @@ let displayBranches = () => {
             if (checkDataJSON(data)) {
                 let dataJSON = JSON.parse(data)
                 let dataStr = ''
-                let count = 0
+                let count = 1
                 let branchStatus = ''
                 dataJSON.forEach(element => {
                     console.table(element)
@@ -82,7 +82,6 @@ let displayBranches = () => {
                         branchStatus = 'Active'
                         dataStr += `<tr>
                                         <td>${count}</td>
-                                        <td>${transformWithWhiteSpaces(element.branch_name)}</td>
                                         <td>${transformWithWhiteSpaces(element.branch_location)}</td>
                                         <td>${element.date_publish}</td>
                                         <td>${branchStatus}</td>

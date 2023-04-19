@@ -127,7 +127,6 @@ var customerQueue = () => {
             choice: 'getCustomerQueue'
         },
         success: data => {
-            console.table(data)
             if (checkJson(data)) {
                 let dataJSON = JSON.parse(data)
                 let str = ''
@@ -136,6 +135,7 @@ var customerQueue = () => {
                 let state = ''
                 let dateToday = new Date()
                 dataJSON.forEach(element => {
+                    console.table(element)
                     if (element.trans_status !== 'dropped' && element.trans_status !== 'removed' && element.trans_status !== 'completed') {
                         if (element.trans_status === '0') {
                             status = '<td style="color: #0b6a0b; background-color: #51e551;">Pending...</td>'

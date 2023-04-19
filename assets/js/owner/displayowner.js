@@ -257,7 +257,6 @@ let addNewBranches = () => {
         url: '../../assets/php/router.php',
         data: {
             choice: 'addBranch',
-            branch_name: $('#branchName').val().toLowerCase(),
             location: $('#branchLocation').val().toLowerCase()
         },
         success: data => {

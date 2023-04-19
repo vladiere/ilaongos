@@ -58,6 +58,7 @@ var displaySchedule = () => {
                 let str = ''
                 let count = 1
                 dataJson.forEach(element => {
+                    console.log(element[0])
                     let status = ''
                     if (element.trans_status === 'accepted') {
                         status = 'Pending...'
@@ -71,8 +72,8 @@ var displaySchedule = () => {
                                     <td>${transformWithWhiteSpace(element.staff_firstname)} ${element.staff_middlename.charAt(0).toUpperCase()} ${transformWithWhiteSpace(element.staff_lastname)}</td>
                                     <td>${status}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-success px-3 completeSched" id="${element.trans_id},${element.staff_id}">Completed</button>
-                                        <button class="btn btn-sm btn-danger px-3 droppedSched" id="${element.trans_id},${element.staff_id}">Drop</button>
+                                        <button class="btn btn-sm btn-success px-3 completeSched" id="${element[0]},${element.staff_id}">Completed</button>
+                                        <button class="btn btn-sm btn-danger px-3 droppedSched" id="${element[0]},${element.staff_id}">Drop</button>
                                     </td>
                                 </tr>`
                                 count++

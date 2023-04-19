@@ -62,7 +62,7 @@ if ($_POST["choice"]) {
             echo $back->addEmployee($_POST["assign"], $_POST["firstname"], $_POST["midname"], $_POST["lastname"], $_POST["birth_date"], $_POST["email_add"], $_POST["contact_no"], $_POST["position"]);
             break;
         case 'addBranch':
-            echo $back->addBranch($_POST["branch_name"], $_POST["location"]);
+            echo $back->addBranch($_POST["location"]);
             break;
         case 'removeEmployee':
             echo $back->removeEmployee($_POST["status"], $_POST["staffID"]);
