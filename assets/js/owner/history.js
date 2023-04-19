@@ -14,19 +14,28 @@ let displayCompletedSchedule = () => {
             if (checkJsonData(data)) {
                 let dataJSON = JSON.parse(data)
                 let str = ''
-                let count = 0
+                let count = 1
                 let total = 0
 
                 dataJSON.forEach(element => {
                     if (element.trans_status === 'completed') {
+                        let comment = ''
+                        if (element.comment === null) {
+                            comment += 'No comments yet'
+                        } else {
+                            comment = ''
+                            comment += element.comment
+                        }
                         str += `<tr>
                                     <td>${count}</td>
                                     <td>${transformWithWhiteSpace(element.firstname)} ${transformWithWhiteSpace(element.midname)} ${transformWithWhiteSpace(element.lastname)}</td>
                                     <td>${transformWithWhiteSpace(element.wash_type)}</td>
                                     <td>${transformWithWhiteSpace(element.vehicle_type)}</td>
+                                    <td>${comment}</td>
+                                    <td>${element.stars}</td>
                                     <td><h2>&#8369;<span class="h5" id="totalIncome">${element.price}</span></h2></td>
                                 </tr>`
-                        total += element.price
+                        total += parseInt(element.price)
                         count++
                     }
                 });

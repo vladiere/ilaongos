@@ -2,11 +2,14 @@ $(document).ready(function() {
     displaySchedule()
 
     $(document).on('click', '.completeSched', function () {
-        completeSchedule(this.id, 'completed')
+        const dataArr = this.id.split(',')
+        console.log(dataArr[1])
+        completeSchedule(dataArr[0], 'completed', dataArr[1])
     })
 
     $(document).on('click', '.droppedSched', function () {
-        completeSchedule(this.id, 'dropped')
+        const dataArr = this.id.split(',')
+        completeSchedule(dataArr[0], 'dropped', dataArr[1])
     })
 });
 
@@ -18,14 +21,15 @@ $(document).ready(function() {
 // 5 remove
 
 
-var completeSchedule = (trans_id, status) => {
+var completeSchedule = (trans_id, status, staff_id) => {
     $.ajax({
         type: 'POST',
         url: '../../assets/php/router.php',
         data: {
             choice: 'updateTransaction',
             trans_id: trans_id,
-            newStatus: status
+            newStatus: status,
+            staff_id: staff_id
         },
         success: data => {
             console.log(data);
@@ -64,12 +68,14 @@ var displaySchedule = () => {
                                     <td>${transformWithWhiteSpace(element.vehicle_type)}</td>
                                     <td>${element.price}</td>
                                     <td>${element.date_sched}</td>
+                                    <td>${transformWithWhiteSpace(element.staff_firstname)} ${element.staff_middlename.charAt(0).toUpperCase()} ${transformWithWhiteSpace(element.staff_lastname)}</td>
                                     <td>${status}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-success px-3 completeSched" id="${element.trans_id}">Completed</button>
-                                        <button class="btn btn-sm btn-danger px-3 droppedSched" id="${element.trans_id}">Drop</button>
+                                        <button class="btn btn-sm btn-success px-3 completeSched" id="${element.trans_id},${element.staff_id}">Completed</button>
+                                        <button class="btn btn-sm btn-danger px-3 droppedSched" id="${element.trans_id},${element.staff_id}">Drop</button>
                                     </td>
                                 </tr>`
+                                count++
                     }
                 });
 

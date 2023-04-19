@@ -89,7 +89,7 @@ let displayEmployee = () => {
                         employeeStr += `<tr>
                                             <td>${count}</td>
                                             <td>${capitalizedWord(element.shop_assign)}</td>
-                                            <td>${capitalizedWord(element.firstname)} ${element.middlename.charAt(0).toUpperCase()}. ${capitalizedWord(element.lastname)}</td>
+                                            <td>${capitalizedWord(element.staff_firstname)} ${element.staff_middlename.charAt(0).toUpperCase()}. ${capitalizedWord(element.staff_lastname)}</td>
                                             <td>${element.date_of_birth}</td>
                                             <td>${element.email_address}</td>
                                             <td>${element.contact_number}</td>

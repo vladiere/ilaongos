@@ -115,6 +115,9 @@ if ($_POST["choice"]) {
         case 'getTransactions':
             echo $back->getTransactions();
             break;
+        case 'addComments':
+            echo $back->addComments($_POST["transID"], $_POST["comments"]);
+            break;
         case 'getTransactionsForCustomer':
             echo $back->getTransactionsForCustomer();
             break;
@@ -131,7 +134,7 @@ if ($_POST["choice"]) {
             echo $back->rateCarwashOwner($_POST["rate_number"], $_POST["owner_id"]);
             break;
         case 'updateTransaction':
-            echo $back->updateTransaction($_POST["trans_id"], $_POST["newStatus"]);
+            echo $back->updateTransaction($_POST["trans_id"], $_POST["newStatus"], $_POST["staff_id"]);
             break;
         case 'logout':
             session_destroy();

@@ -10,6 +10,7 @@ let getAllShopsAndOwner = () => {
             choice: 'allCarwashShopAndOwner'
         },
         success: data => {
+            console.log(data)
             if (checkDataJson(data)) {
                 let dataJSON = JSON.parse(data)
                 let str = ''

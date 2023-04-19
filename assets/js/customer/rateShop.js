@@ -114,10 +114,29 @@ let addStarsToOwner = (trans_id, ownerID) => {
         },
         success: data => {
             if (data === '200') {
-                const starsAmount = $('#starAmount').val() / 2;
-                const stars = Number(starsAmount.toFixed(2))
-                sendStar(ownerID, stars)
+                sendStar(ownerID, $('#starAmount').val())
+                addComments(trans_id)
                 $('#starAmount').val('')
+            } else {
+                console.log(data);
+            }
+        },
+        error: (xhr, ajaxOptions, err) => {console.error(err);}
+    })
+}
+
+let addComments = (trans_id) => {
+    $.ajax({
+        type: "POST",
+        url: '../../assets/php/router.php',
+        data: {
+            choice: 'addComments',
+            transID: trans_id,
+            comments: $('#comments').val(),
+        },
+        success: data => {
+            if (data === '200') {
+                $('#comments').val('')
             } else {
                 console.log(data);
             }
@@ -164,6 +183,7 @@ let displayCompletedTransactions = () => {
                         str += `<tr>
                                     <td>${count}</td>
                                     <td>${element.carwash_name}</td>
+                                    <td>${element.staff_firstname} ${element.staff_middlename.charAt(0)}. ${element.staff_lastname}</td>
                                     <td>${element.date_updated}</td>
                                     <td>${rated}</td>
                                     <td>${starsCount}</td>

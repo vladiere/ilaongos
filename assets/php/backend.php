@@ -133,9 +133,9 @@ class backend
         return self::getCustomerQueueDetails();
     }
 
-    public function updateTransaction($trans_id, $newStatus)
+    public function updateTransaction($trans_id, $newStatus, $staffID)
     {
-        return self::updateTransactionDetails($trans_id, $newStatus);
+        return self::updateTransactionDetails($trans_id, $newStatus, $staffID);
     }
 
     public function cancelTransactionsCustomer($trans_id)
@@ -201,6 +201,38 @@ class backend
     public function addStars($transID, $stars_number)
     {
         return self::addStarsToOwner($transID, $stars_number);
+    }
+
+    public function addComments($transID, $comments)
+    {
+        return self::addCommentsToOwner($transID, $comments);
+    }
+
+    private function addCommentsToOwner($transID, $comments)
+    {
+        try {
+            if (self::checkLogin($_SESSION["email"], $_SESSION["password"])) {
+                $db = new database;
+                if ($db->getStatus()) {
+                    $stmt = $db->getConnection()->prepare(self::addCommentsQuery());
+                    $stmt->execute(array($transID, $comments));
+                    $res = $stmt->fetch();
+                    if (!$res) {
+                        $db->closeConnection();
+                        return '200';
+                    } else {
+                        $db->closeConnection();
+                        return '404';
+                    }
+                } else {
+                    return '403';
+                }
+            } else {
+                return '403';
+            }
+        } catch (PDOException $e) {
+            return $e->getMessage();
+        }
     }
 
     private function addStarsToOwner($transID, $stars_number)
@@ -524,14 +556,14 @@ class backend
         }
     }
 
-    private function updateTransactionDetails($trans_id, $newStatus)
+    private function updateTransactionDetails($trans_id, $newStatus, $staffID)
     {
         try {
             if (self::checkLogin($_SESSION["email"], $_SESSION["password"])) {
                 $db = new database();
                 if ($db->getStatus()) {
                     $stmt = $db->getConnection()->prepare(self::updateTransactionQuery());
-                    $stmt->execute(array(self::getDateToday(), $newStatus, $trans_id));
+                    $stmt->execute(array(self::getDateToday(), $newStatus, $staffID, $trans_id));
                     $result = $stmt->fetch();
                     if (!$result) {
                         $db->closeConnection();
@@ -1207,9 +1239,9 @@ class backend
                 if ($db->getStatus()) {
                     $stmt = $db->getConnection()->prepare(self::registerQuery());
                     if ($role === 'owner') {
-                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday()));
+                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, 2));
                     } else {
-                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, self::getDateToday(), self::getDateToday()));
+                        $stmt->execute(array($email_add, md5($password), $firstname, $lastname, $midname, $role, 0));
                     }
                     $result = $stmt->fetch();
                     
@@ -1345,7 +1377,7 @@ class backend
 
     private function registerQuery()
     {
-        return "INSERT INTO `tbl_users`(`email_add`, `password`, `firstname`, `lastname`, `midname`, `role`, `date_created`, `date_updated`, `status`) VALUES (?,?,?,?,?,?,?,?,?)";
+        return "INSERT INTO `tbl_users`(`email_add`, `password`, `firstname`, `lastname`, `midname`, `role`, `status`) VALUES (?,?,?,?,?,?,?)";
     }
 
     private function loginQuery()
@@ -1433,7 +1465,7 @@ class backend
 
     private function registerEmployeeQuery()
     {
-        return "INSERT INTO `tbl_staff`(`owner_id`, `shop_assign`, `firstname`, `middlename`, `lastname`, `date_of_birth`, `email_address`, `contact_number`, `position`) VALUES (?,?,?,?,?,?,?,?,?)";
+        return "INSERT INTO `tbl_staff`(`owner_id`, `shop_assign`, `staff_firstname`, `staff_middlename`, `staff_lastname`, `date_of_birth`, `email_address`, `contact_number`, `position`) VALUES (?,?,?,?,?,?,?,?,?)";
     }
 
     public function updatePriceList($price, $listID)
@@ -1593,6 +1625,11 @@ class backend
         return "SELECT * FROM `tbl_documents` WHERE `owner_id` = ?";
     }
 
+    private function addCommentsQuery()
+    {
+        return "INSERT INTO `tbl_comments` (`trans_id`,`comment`) VALUES (?,?)";
+    }
+
     private function insertDocumentsQuery()
     {
         return "INSERT INTO `tbl_documents`(`owner_id`, `img_path`, `date_publish`, `date_updated`) VALUES (?,?,?,?)";
@@ -1676,22 +1713,22 @@ class backend
 
     private function updateTransactionQuery()
     {
-        return "UPDATE `tbl_transactions` SET `date_updated` = ?, `trans_status` = ? WHERE `trans_id` = ?";
+        return "UPDATE `tbl_transactions` SET `date_updated` = ?, `trans_status` = ?, `staff_id` = ? WHERE `trans_id` = ?";
     }
 
     private function getCustomerQueueQuery()
     {
-        return "SELECT * FROM `tbl_transactions` `tt` JOIN `tbl_users` `tu` ON `tt`.`user_id` = `tu`.`id` WHERE `tt`.`shopowner_id` = ? ORDER BY `date_sched` ASC";
+        return "SELECT * FROM `tbl_transactions` `tt` JOIN `tbl_users` `tu` ON `tt`.`user_id` = `tu`.`id` JOIN `tbl_carwashshop` `tc` ON `tt`.`shopowner_id` = `tc`.`owner_id` JOIN `tbl_branch` `tb` ON `tt`.`shopowner_id` = `tb`.`owner_id` WHERE `tt`.`shopowner_id` = ? ORDER BY `date_sched` ASC";
     }
 
     private function getTransactionQueueQuery()
     {
-        return "SELECT * FROM `tbl_transactions` `tt` JOIN `tbl_users` `tu` ON `tt`.`user_id` = `tu`.`id` WHERE `shopowner_id` = ?";
+        return "SELECT * FROM `tbl_transactions` `tt` JOIN `tbl_users` `tu` ON `tt`.`user_id` = `tu`.`id` JOIN `tbl_staff` `ts` ON `tt`.`staff_id` = `ts`.`staff_id` LEFT JOIN `tbl_comments` `tc` ON `tt`.`trans_id` = `tc`.`trans_id` WHERE `shopowner_id` = ? ORDER BY `tt`.`trans_id` DESC;";
     }
 
     private function getTransactionQueueForCustomerQuery()
     {
-        return "SELECT * FROM `tbl_transactions` WHERE `user_id` = ?";
+        return "SELECT * FROM `tbl_transactions` `tt` JOIN `tbl_staff` `ts` ON  `tt`.`staff_id` = `ts`.`staff_id` WHERE `user_id` = ?";
     }
 
     private function cancelTransactionsForCustomerQuery()
@@ -1721,7 +1758,7 @@ class backend
 
     private function carwashShopRatingQuery()
     {
-        return "UPDATE `tbl_carwashshop` SET `rating` = ((`rating` * `number_rate`) + ?) / (`number_rate` + 1), `number_rate` = `number_rate` + 1 WHERE `owner_id` = ?";
+        return "UPDATE `tbl_carwashshop` SET rating = ((rating * number_rate) + ?) / (number_rate + 1), number_rate = number_rate + 1 WHERE owner_id = ?";
     }
 
     private function addStarsToOwnerQuery()

@@ -1,5 +1,25 @@
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+}
+
+
 $(document).ready(function() {
     customerQueue()
+    displayEmployee()
 
     $(document).on('click', '.viewDetails', function () {
         customerWashDetails(this.id)
@@ -10,22 +30,56 @@ $(document).ready(function() {
     })
 
     $(document).on('click', '.acceptQueue', function () {
-        acceptCustomerQueue(this.id, 'accepted')
+        console.log($('#ownerStaff').val())
+        if ($('#ownerStaff').val() != 0) {
+            acceptCustomerQueue(this.id, 'accepted', $('#ownerStaff').val())
+        } else {
+            toastr['error']('Please select a staff to take charge')
+        }
     })
 })
 
-var acceptCustomerQueue = (trans_id, status) => {
+var acceptCustomerQueue = (trans_id, status, staff_id) => {
     $.ajax({
         type: 'POST',
         url: '../../assets/php/router.php',
         data: {
             choice: 'updateTransaction',
             trans_id: trans_id,
-            newStatus: status
+            newStatus: status,
+            staff_id: staff_id,
         },
         success: data => {
             if (data === '200') {
-                location.reload()
+                $('#ownerStaff').val(0)
+                $('#detailsModal').modal('hide')
+                toastr['success']('Pending Accepted')
+                $('#customerTable').load(location.href + ' #customerTable')
+                customerQueue()
+            } else {
+                console.log(data);
+            }
+        },
+        error: (xhr, ajaxOptions, err) => {console.error(err);}
+    })
+}
+
+let displayEmployee = () => {
+    $.ajax({
+        type: 'POST',
+        url: '../../assets/php/router.php',
+        data: {
+            choice: 'employeesList'
+        },
+        success: data => {
+            if (checkJson(data)) {
+                let dataJSON = JSON.parse(data)
+                
+                dataJSON.forEach(element => {
+                    if (element.staff_status === '0') {
+                        $('<option>').val(`${element.staff_id}`).text(`${transformWithWhiteSpace(element.staff_firstname)} ${element.staff_middlename.charAt(0).toUpperCase()}. ${transformWithWhiteSpace(element.staff_lastname)}`).appendTo('#ownerStaff')
+                    }
+                })
             } else {
                 console.log(data);
             }
@@ -73,6 +127,7 @@ var customerQueue = () => {
             choice: 'getCustomerQueue'
         },
         success: data => {
+            console.table(data)
             if (checkJson(data)) {
                 let dataJSON = JSON.parse(data)
                 let str = ''
@@ -81,7 +136,6 @@ var customerQueue = () => {
                 let state = ''
                 let dateToday = new Date()
                 dataJSON.forEach(element => {
-                    
                     if (element.trans_status !== 'dropped' && element.trans_status !== 'removed' && element.trans_status !== 'completed') {
                         if (element.trans_status === '0') {
                             status = '<td style="color: #0b6a0b; background-color: #51e551;">Pending...</td>'
@@ -98,7 +152,7 @@ var customerQueue = () => {
                         }
                         const dateToCheck = element.date_sched.split(' ')
                         
-                        if (dateToday < new Date(dateToCheck[0])) {
+                        if (dateToday < dateToCheck[0]) {
                             status = '<td style="color: #eee; background-color: green;">Late Accept</td>'
                         }
     

@@ -52,7 +52,7 @@ $(document).ready(() => {
 })
 
 
-addPending = (id,statusRes) => {
+let addPending = (id,statusRes) => {
     $.ajax({
         type: 'POST',
         url: '../../assets/php/router.php',
@@ -75,7 +75,7 @@ addPending = (id,statusRes) => {
     })
 }
 
-getDocuments = (idOwner) => {
+let getDocuments = (idOwner) => {
     $.ajax({
         type: 'POST',
         url: '../../assets/php/router.php',
@@ -102,7 +102,7 @@ getDocuments = (idOwner) => {
     })
 }
 
-displayPendingDetails = (ownerID) => {
+let displayPendingDetails = (ownerID) => {
     $('#pendingTable').hide()
 
     $.ajax({
@@ -199,7 +199,7 @@ displayPendingDetails = (ownerID) => {
 }
 
 
-displayPendings = () => {
+let displayPendings = () => {
     $.ajax({
         type: 'POST',
         url: '../../assets/php/router.php',
@@ -212,7 +212,7 @@ displayPendings = () => {
                 let str = ''
                 let ctr = 1
                 dataJSON.forEach(element => {
-                    if (element.status === 0) {
+                    if (element.status == 0) {
                         str += '<tr>' +
                                     '<td>'+ ctr +'</td>' +
                                     '<td>'+ capitalized(element.shop_name) +'</td>' +

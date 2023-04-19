@@ -96,6 +96,7 @@ let registerRequest = () => {
             role: $('#role').val()
         },
         success: (data) => {
+            console.log(data)
             if (data === '200') {
                 $(location).attr('href','./login.html')
             } else {

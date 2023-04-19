@@ -67,7 +67,6 @@ let displayCarwashShop = () => {
         success: (data) => {
             if (checkJson(data)) {
                 let dataJSON = JSON.parse(data);
-
                 let tableStr = ''
                 let ctr = 1
                 dataJSON.forEach(element => {
@@ -163,7 +162,7 @@ let ownerPriceList = (ownerID) => {
                         $('.setSched').attr('id', ownerID)
                     }
                 })
-
+                $('#tablePriceList').empty()
                 $('#tablePriceList').append(str)
 
             } else {

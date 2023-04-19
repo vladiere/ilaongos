@@ -27,7 +27,7 @@ let displayOwnerList = () => {
                     } else {
                         accStatus = 'Not Verified'
                     }
-                    if (element.role === 'owner' && element.status !== 1) {
+                    if (element.role === 'owner' && element.status !== 2) {
                         str += '<tr>'+
                                 '<td>'+ ctr +'</td>'+
                                 '<td>'+ capitalized(element.lastname) +', '+ capitalized(element.firstname) +' '+ element.midname.charAt(0) +'.</td>'+
